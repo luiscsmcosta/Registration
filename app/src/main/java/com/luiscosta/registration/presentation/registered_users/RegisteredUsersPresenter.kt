@@ -33,6 +33,23 @@ class RegisteredUsersPresenter @Inject constructor(
         )
     }
 
+    override fun removeAllUsers() {
+        subscriptions.add(
+            userRepository
+                .removeAllUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { list ->
+                        view.showUsers(list)
+                    },
+                    {
+                        Log.e(tag, it?.message ?: it.toString())
+                    }
+                )
+        )
+    }
+
     override fun onViewDestroyed() {
         subscriptions.clear()
     }

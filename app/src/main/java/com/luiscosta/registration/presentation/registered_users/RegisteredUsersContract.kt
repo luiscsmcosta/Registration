@@ -11,5 +11,6 @@ interface RegisteredUsersContract {
 
     interface Presenter : BaseContract.Presenter {
         fun getAllUsers()
+        fun removeAllUsers()
     }
 }

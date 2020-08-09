@@ -24,5 +24,7 @@
     <string name="confirmation_email">Email: %s</string>
     <string name="confirmation_birth_date">Birth Date: %s</string>
 
-    <string name="registered_users">registered users</string>
+    <string name="registered_users">registered users (extra)</string>
+
+    <string name="clear">Clear</string>
 </resources>

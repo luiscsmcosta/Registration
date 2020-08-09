@@ -11,4 +11,6 @@ interface IUserRepository {
 
     fun getAllUsers(): Single<List<UserDomain>>
 
+    fun removeAllUsers(): Single<List<UserDomain>>
+
 }

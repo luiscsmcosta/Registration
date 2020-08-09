@@ -42,6 +42,7 @@ class ConfirmationFragment : Fragment(), ConfirmationContract.View {
 
         registeredUsers.setOnClickListener {
             startActivity(RegisteredUsersActivity.newIntent(requireContext()))
+            activity?.finish()
         }
 
         activity?.intent?.getLongExtra(ConfirmationActivity.USER_ID, -1)?.let {
@@ -56,14 +57,14 @@ class ConfirmationFragment : Fragment(), ConfirmationContract.View {
     }
 
     override fun showName(name: String) {
-        this.name.text = String.format(getString(R.string.confirmation_name),name)
+        this.name.text = String.format(getString(R.string.confirmation_name), name)
     }
 
     override fun showEmail(email: String) {
-        this.email.text = String.format(getString(R.string.confirmation_email),email)
+        this.email.text = String.format(getString(R.string.confirmation_email), email)
     }
 
     override fun showBirthDate(birthDate: String) {
-        this.birthDate.text = String.format(getString(R.string.confirmation_birth_date),birthDate)
+        this.birthDate.text = String.format(getString(R.string.confirmation_birth_date), birthDate)
     }
 }

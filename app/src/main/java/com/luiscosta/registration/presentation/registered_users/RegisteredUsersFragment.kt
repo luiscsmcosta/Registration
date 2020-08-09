@@ -1,9 +1,7 @@
 package com.luiscosta.registration.presentation.registered_users
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.luiscosta.registration.R
@@ -25,6 +23,22 @@ class RegisteredUsersFragment : Fragment(), RegisteredUsersContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.clear_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return  if(item.itemId == R.id.clear_item) {
+            presenter.removeAllUsers()
+
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onCreateView(

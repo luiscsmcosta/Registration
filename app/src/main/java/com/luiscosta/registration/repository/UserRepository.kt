@@ -8,37 +8,31 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val userDao: UserDao) : IUserRepository {
 
-    override fun addUser(user: UserDomain): Single<Long> {
-        return userDao.insertUser(user.toUserEntity())
+    override fun addUser(user: UserDomain) = userDao.insertUser(user.toUserEntity())
+
+    override fun getUser(id: Long) = userDao.getUserById(id).map { user ->
+        user.toUserDomain()
     }
 
-    override fun getUser(id: Long): Single<UserDomain> {
-        return userDao.getUserById(id).map { user ->
+    override fun getAllUsers() = userDao.getAll().map {
+        it.map { user ->
             user.toUserDomain()
         }
     }
 
-    override fun getAllUsers(): Single<List<UserDomain>> {
-        return userDao.getAll().map {
-            it.map { user ->
-                user.toUserDomain()
-            }
-        }
+    override fun removeAllUsers(): Single<List<UserDomain>> = userDao.deleteAll().toSingle {
+        emptyList<UserDomain>()
     }
 
-    private fun UserDomain.toUserEntity(): User {
-        return User(
-            name = name,
-            email = email,
-            birthDate = birthDate
-        )
-    }
+    private fun UserDomain.toUserEntity() = User(
+        name = name,
+        email = email,
+        birthDate = birthDate
+    )
 
-    private fun User.toUserDomain(): UserDomain {
-        return UserDomain(
-            name = name,
-            email = email,
-            birthDate = birthDate
-        )
-    }
+    private fun User.toUserDomain() = UserDomain(
+        name = name,
+        email = email,
+        birthDate = birthDate
+    )
 }
