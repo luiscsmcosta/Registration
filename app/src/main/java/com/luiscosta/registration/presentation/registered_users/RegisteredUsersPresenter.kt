@@ -1,15 +1,16 @@
 package com.luiscosta.registration.presentation.registered_users
 
 import android.util.Log
+import com.luiscosta.registration.R
 import com.luiscosta.registration.repository.IUserRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.luiscosta.registration.schedulers.BaseSchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class RegisteredUsersPresenter @Inject constructor(
     private val view: RegisteredUsersContract.View,
-    private val userRepository: IUserRepository
+    private val userRepository: IUserRepository,
+    private val schedulers: BaseSchedulerProvider
 ) : RegisteredUsersContract.Presenter {
 
     private val tag = RegisteredUsersPresenter::class.java.simpleName
@@ -20,13 +21,14 @@ class RegisteredUsersPresenter @Inject constructor(
         subscriptions.add(
             userRepository
                 .getAllUsers()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
                 .subscribe(
                     { list ->
                         view.showUsers(list)
                     },
                     {
+                        view.showErrorDialog(R.string.get_all_users_error)
                         Log.e(tag, it?.message ?: it.toString())
                     }
                 )
@@ -37,13 +39,14 @@ class RegisteredUsersPresenter @Inject constructor(
         subscriptions.add(
             userRepository
                 .removeAllUsers()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
                 .subscribe(
                     { list ->
                         view.showUsers(list)
                     },
                     {
+                        view.showErrorDialog(R.string.remove_all_users_error)
                         Log.e(tag, it?.message ?: it.toString())
                     }
                 )

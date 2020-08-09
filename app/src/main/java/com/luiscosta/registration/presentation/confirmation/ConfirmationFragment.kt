@@ -1,5 +1,6 @@
 package com.luiscosta.registration.presentation.confirmation
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -66,5 +67,16 @@ class ConfirmationFragment : Fragment(), ConfirmationContract.View {
 
     override fun showBirthDate(birthDate: String) {
         this.birthDate.text = String.format(getString(R.string.confirmation_birth_date), birthDate)
+    }
+
+    override fun showErrorDialog(stringRes: Int) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(getString(stringRes))
+            .setPositiveButton(
+                getString(R.string.ok)
+            ) { _, _ -> activity?.finish() }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }

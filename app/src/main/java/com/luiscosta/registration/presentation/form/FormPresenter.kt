@@ -4,9 +4,8 @@ import android.util.Log
 import com.luiscosta.registration.R
 import com.luiscosta.registration.domain.UserDomain
 import com.luiscosta.registration.repository.IUserRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.luiscosta.registration.schedulers.BaseSchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -14,7 +13,8 @@ import javax.inject.Inject
 
 class FormPresenter @Inject constructor(
     private val view: FormContract.View,
-    private val userRepository: IUserRepository
+    private val userRepository: IUserRepository,
+    private val schedulers: BaseSchedulerProvider
 ) : FormContract.Presenter {
 
     private val tag = FormPresenter::class.java.simpleName
@@ -30,13 +30,14 @@ class FormPresenter @Inject constructor(
             subscriptions.add(
                 userRepository
                     .addUser(user)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
                     .subscribe(
                         {
                             view.showConfirmationScreen(it)
                         },
                         {
+                            view.showErrorDialog(R.string.add_user_error)
                             Log.e(tag, it?.message ?: it.toString())
                         }
                     )

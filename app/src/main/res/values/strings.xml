@@ -27,4 +27,10 @@
     <string name="registered_users">registered users (extra)</string>
 
     <string name="clear">Clear</string>
+    <string name="ok">OK</string>
+
+    <string name="get_user_error">Something failed getting your info!</string>
+    <string name="add_user_error">Something failed saving your info! Try again!</string>
+    <string name="get_all_users_error">Something failed getting all users!</string>
+    <string name="remove_all_users_error">Something failed removing all users!</string>
 </resources>

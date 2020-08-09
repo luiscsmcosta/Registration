@@ -1,5 +1,6 @@
 package com.luiscosta.registration.presentation.registered_users
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -65,5 +66,16 @@ class RegisteredUsersFragment : Fragment(), RegisteredUsersContract.View {
 
     override fun showUsers(list: List<UserDomain>) {
         adapter.bind(list)
+    }
+
+    override fun showErrorDialog(stringRes: Int) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(getString(stringRes))
+            .setPositiveButton(
+                getString(R.string.ok)
+            ) { _, _ -> activity?.finish() }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }

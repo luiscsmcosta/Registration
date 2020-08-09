@@ -1,5 +1,6 @@
 package com.luiscosta.registration.presentation.form
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -160,5 +161,20 @@ class FormFragment : Fragment(), FormContract.View {
         } else {
             View.GONE
         }
+    }
+
+    override fun showErrorDialog(stringRes: Int) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(getString(stringRes))
+            .setPositiveButton(
+                getString(R.string.ok)
+            ) { _, _ ->
+                clearName()
+                clearEmail()
+                clearBirthDate()
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }
