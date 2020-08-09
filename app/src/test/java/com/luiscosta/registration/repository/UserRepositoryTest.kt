@@ -1,0 +1,3 @@
+package com.luiscosta.registration.repository
+
+class UserRepositoryTest

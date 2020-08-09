@@ -1,0 +1,3 @@
+package com.luiscosta.registration.presentation.registered_users
+
+class RegisteredUsersPresenterTest
