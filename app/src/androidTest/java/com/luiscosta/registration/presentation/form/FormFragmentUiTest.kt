@@ -1,5 +1,7 @@
 package com.luiscosta.registration.presentation.form
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -7,8 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.luiscosta.registration.R
-import com.luiscosta.registration.domain.UserDomain
-import com.luiscosta.registration.repository.FakeUserRepository
 import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
@@ -20,8 +20,14 @@ class FormFragmentUiTest {
     @get:Rule
     var activityRule = ActivityTestRule(FormActivity::class.java, true, true)
 
+    private val appResources = ApplicationProvider.getApplicationContext<Context>().resources
+
+    private val expectedName = "Luis"
+    private val expectedEmail = "luis@ab.abc.ba"
+    private val expectedBirthDate = "1984-04-22"
+
     @Test
-    fun test_View_successful_created() {
+    fun should_see_form_screen_and_show_errors() {
         hideKeyboard()
         checkErrorsHidden()
         checkTitles()
@@ -29,7 +35,11 @@ class FormFragmentUiTest {
         checkButton()
         clickButton()
         checkErrorsShown()
-        fillInEditTexts("Luis", "luis@ab.cd", "1984-04-22")
+    }
+
+    @Test
+    fun should_see_form_screen_fill_data_and_show_confirmation_screen() {
+        fillInEditTexts()
         hideKeyboard()
         clickButton()
         checkConfirmationActivityShown()
@@ -38,6 +48,41 @@ class FormFragmentUiTest {
     private fun checkConfirmationActivityShown() {
         onView(withId(R.id.confirmation_notice_tv)).check(
             matches(isDisplayed())
+        )
+        onView(withId(R.id.confirmation_notice_tv)).check(
+            matches(
+                withText(R.string.confirmation_notice)
+            )
+        )
+        onView(withId(R.id.name_tv)).check(
+            matches(
+                withText(
+                    appResources.getString(
+                        R.string.confirmation_name,
+                        expectedName
+                    )
+                )
+            )
+        )
+        onView(withId(R.id.email_tv)).check(
+            matches(
+                withText(
+                    appResources.getString(
+                        R.string.confirmation_email,
+                        expectedEmail
+                    )
+                )
+            )
+        )
+        onView(withId(R.id.birth_date_tv)).check(
+            matches(
+                withText(
+                    appResources.getString(
+                        R.string.confirmation_birth_date,
+                        expectedBirthDate
+                    )
+                )
+            )
         )
     }
 
@@ -110,11 +155,10 @@ class FormFragmentUiTest {
     }
 
     @Suppress("SameParameterValue")
-    private fun fillInEditTexts(name: String, email: String, birthDate: String) {
-        FakeUserRepository.fakeUser = UserDomain(name, email, birthDate)
-        onView(withId(R.id.name_et)).perform(typeText(name))
-        onView(withId(R.id.email_et)).perform(typeText(email))
-        onView(withId(R.id.birth_date_et)).perform(typeText(birthDate))
+    private fun fillInEditTexts() {
+        onView(withId(R.id.name_et)).perform(typeText(expectedName))
+        onView(withId(R.id.email_et)).perform(typeText(expectedEmail))
+        onView(withId(R.id.birth_date_et)).perform(typeText(expectedBirthDate))
     }
 
     private fun checkEmptyEditTexts() {

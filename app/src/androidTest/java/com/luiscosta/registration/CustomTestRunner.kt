@@ -2,7 +2,7 @@ package com.luiscosta.registration
 
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
-import com.luiscosta.registration.application.TestApplication
+import com.luiscosta.registration.application.RegistrationApplication
 
 class CustomTestRunner : AndroidJUnitRunner() {
 
@@ -10,5 +10,5 @@ class CustomTestRunner : AndroidJUnitRunner() {
         cl: ClassLoader?,
         className: String?,
         context: Context?
-    ) = super.newApplication(cl, TestApplication::class.java.name, context)
+    ) = super.newApplication(cl, RegistrationApplication::class.java.name, context)
 }
