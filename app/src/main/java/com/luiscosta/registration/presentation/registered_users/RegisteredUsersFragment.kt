@@ -73,7 +73,7 @@ class RegisteredUsersFragment : Fragment(), RegisteredUsersContract.View {
             .setMessage(getString(stringRes))
             .setPositiveButton(
                 getString(R.string.ok)
-            ) { _, _ -> activity?.finish() }
+            ) { _, _ -> requireActivity().finish() }
             .setCancelable(false)
             .create()
             .show()
