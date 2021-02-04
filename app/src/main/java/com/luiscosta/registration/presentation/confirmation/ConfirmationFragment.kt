@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import com.luiscosta.registration.R
-import com.luiscosta.registration.presentation.registered_users.RegisteredUsersActivity
+import com.luiscosta.registration.presentation.BaseFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ConfirmationFragment : Fragment(), ConfirmationContract.View {
+class ConfirmationFragment : BaseFragment(), ConfirmationContract.View {
 
     @Inject
     lateinit var presenter: ConfirmationContract.Presenter
@@ -20,7 +19,6 @@ class ConfirmationFragment : Fragment(), ConfirmationContract.View {
     private lateinit var name: TextView
     private lateinit var email: TextView
     private lateinit var birthDate: TextView
-    private lateinit var registeredUsers: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -39,14 +37,8 @@ class ConfirmationFragment : Fragment(), ConfirmationContract.View {
         name = view.findViewById(R.id.name_tv)
         email = view.findViewById(R.id.email_tv)
         birthDate = view.findViewById(R.id.birth_date_tv)
-        registeredUsers = view.findViewById(R.id.registered_users_tv)
 
-        registeredUsers.setOnClickListener {
-            startActivity(RegisteredUsersActivity.newIntent(requireContext()))
-            activity?.finish()
-        }
-
-        activity?.intent?.getLongExtra(ConfirmationActivity.USER_ID, -1)?.let {
+        requireActivity().intent?.getLongExtra(ConfirmationActivity.USER_ID, -1)?.let {
             presenter.getUser(it)
         }
     }

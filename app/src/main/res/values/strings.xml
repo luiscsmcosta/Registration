@@ -27,6 +27,7 @@
     <string name="registered_users">registered users (extra)</string>
 
     <string name="clear">Clear</string>
+    <string name="list">List</string>
     <string name="ok">OK</string>
 
     <string name="get_user_error">Something failed getting your info!</string>

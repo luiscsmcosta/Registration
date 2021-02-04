@@ -12,13 +12,13 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import com.luiscosta.registration.R
+import com.luiscosta.registration.presentation.BaseFragment
 import com.luiscosta.registration.presentation.confirmation.ConfirmationActivity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class FormFragment : Fragment(), FormContract.View {
+class FormFragment : BaseFragment(), FormContract.View {
 
     @Inject
     lateinit var presenter: FormContract.Presenter
