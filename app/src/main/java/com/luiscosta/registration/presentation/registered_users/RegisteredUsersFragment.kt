@@ -2,16 +2,20 @@ package com.luiscosta.registration.presentation.registered_users
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.luiscosta.registration.R
 import com.luiscosta.registration.domain.UserDomain
+import com.luiscosta.registration.presentation.BaseFragment
+import com.luiscosta.registration.presentation.BaseFragment.MenuType.CLEAR
 import com.luiscosta.registration.presentation.registered_users.adapter.RegisteredUsersAdapter
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class RegisteredUsersFragment : Fragment(), RegisteredUsersContract.View {
+class RegisteredUsersFragment : BaseFragment(CLEAR), RegisteredUsersContract.View {
 
     @Inject
     lateinit var presenter: RegisteredUsersContract.Presenter
@@ -27,13 +31,8 @@ class RegisteredUsersFragment : Fragment(), RegisteredUsersContract.View {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.clear_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return  if(item.itemId == R.id.clear_item) {
+        return if (item.itemId == R.id.clear_item) {
             presenter.removeAllUsers()
 
             true

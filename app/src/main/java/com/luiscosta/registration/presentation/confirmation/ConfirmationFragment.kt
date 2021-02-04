@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.luiscosta.registration.R
 import com.luiscosta.registration.presentation.BaseFragment
+import com.luiscosta.registration.presentation.BaseFragment.MenuType.LIST
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ConfirmationFragment : BaseFragment(), ConfirmationContract.View {
+class ConfirmationFragment : BaseFragment(LIST), ConfirmationContract.View {
 
     @Inject
     lateinit var presenter: ConfirmationContract.Presenter

@@ -14,11 +14,12 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import com.luiscosta.registration.R
 import com.luiscosta.registration.presentation.BaseFragment
+import com.luiscosta.registration.presentation.BaseFragment.MenuType.LIST
 import com.luiscosta.registration.presentation.confirmation.ConfirmationActivity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class FormFragment : BaseFragment(), FormContract.View {
+class FormFragment : BaseFragment(LIST), FormContract.View {
 
     @Inject
     lateinit var presenter: FormContract.Presenter
