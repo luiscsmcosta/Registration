@@ -47,9 +47,6 @@ class RegistrationUiTest {
 
     private fun checkConfirmationActivityShown() {
         onView(withId(R.id.confirmation_notice_tv)).check(
-            matches(isDisplayed())
-        )
-        onView(withId(R.id.confirmation_notice_tv)).check(
             matches(
                 withText(R.string.confirmation_notice)
             )
