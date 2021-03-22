@@ -4,15 +4,15 @@ import com.luiscosta.registration.repository.IUserRepository
 import com.luiscosta.registration.repository.UserRepository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-@Module(includes = [UserRepositoryModule.Bindings::class])
-class UserRepositoryModule {
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class UserRepositoryModule {
 
-    @Module
-    interface Bindings {
-
-        @Binds
-        fun bindUserRepository(impl: UserRepository): IUserRepository
-
-    }
+    @Binds
+    abstract fun bindUserRepository(impl: UserRepository): IUserRepository
 }

@@ -12,9 +12,10 @@ import com.luiscosta.registration.domain.UserDomain
 import com.luiscosta.registration.presentation.BaseFragment
 import com.luiscosta.registration.presentation.BaseFragment.MenuType.CLEAR
 import com.luiscosta.registration.presentation.registered_users.adapter.RegisteredUsersAdapter
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class RegisteredUsersFragment : BaseFragment(CLEAR), RegisteredUsersContract.View {
 
     @Inject
@@ -24,12 +25,6 @@ class RegisteredUsersFragment : BaseFragment(CLEAR), RegisteredUsersContract.Vie
     lateinit var adapter: RegisteredUsersAdapter
 
     private lateinit var usersList: RecyclerView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == R.id.clear_item) {

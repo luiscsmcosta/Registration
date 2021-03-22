@@ -1,4 +1,9 @@
 # Registration
-This is a code challenge
+This was a code challenge, not it is a sandbox.
 
-Missing ui tests for Registered Users screen (as it is an extra and I demonstrated I could do tests on the other ones).
+## What's new:
+- Replaced dagger with hilt.
+
+## Next steps:
+- Replace rxjava with coroutines;
+- Replace MVP with MVVM.

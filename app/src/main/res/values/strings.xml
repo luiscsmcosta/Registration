@@ -16,7 +16,7 @@
 
     <string name="name_error">Name must have at least one character</string>
     <string name="email_error">Email must have at least one character before the @ and at least four characters after it, for the domain.\nAt least one of the domain characters must be a dot (.) and after it you must always have 2 other characters. E.g. l@a.bc</string>
-    <string name="date_of_birth_error">Date of birth must be between Jan 1, 1900 and Dec 31, 2019 and must respect the pattern yyyy&#8211;MM&#8211;dd (e.g. 2019&#8211;05&#8211;22)</string>
+    <string name="date_of_birth_error">Date of birth must be between Jan 1, 1900 and today and must respect the pattern yyyy&#8211;MM&#8211;dd (e.g. 2019&#8211;05&#8211;22)</string>
 
     <string name="confirmation_notice">Thank you for registering!\nThe data you registered with is as follows:</string>
 

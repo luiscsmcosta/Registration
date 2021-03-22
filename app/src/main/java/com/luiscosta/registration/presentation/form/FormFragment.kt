@@ -1,32 +1,35 @@
 package com.luiscosta.registration.presentation.form
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.StringRes
 import com.luiscosta.registration.R
 import com.luiscosta.registration.presentation.BaseFragment
 import com.luiscosta.registration.presentation.BaseFragment.MenuType.LIST
 import com.luiscosta.registration.presentation.confirmation.ConfirmationActivity
-import dagger.android.support.AndroidSupportInjection
+import com.luiscosta.registration.presentation.registered_users.RegisteredUsersActivity
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
-class FormFragment : BaseFragment(LIST), FormContract.View {
+@AndroidEntryPoint
+class FormFragment : BaseFragment(LIST), DatePickerDialog.OnDateSetListener, FormContract.View {
 
     @Inject
     lateinit var presenter: FormContract.Presenter
 
     private lateinit var name: EditText
     private lateinit var email: EditText
-    private lateinit var birthDate: EditText
+    private lateinit var birthDate: TextView
 
     private lateinit var nameError: TextView
     private lateinit var emailError: TextView
@@ -54,9 +57,9 @@ class FormFragment : BaseFragment(LIST), FormContract.View {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
+
+    companion object {
+        private const val DATE_FORMAT = "yyyy-MM-dd"
     }
 
     override fun onCreateView(
@@ -77,6 +80,19 @@ class FormFragment : BaseFragment(LIST), FormContract.View {
         name = view.findViewById(R.id.name_et)
         email = view.findViewById(R.id.email_et)
         birthDate = view.findViewById(R.id.birth_date_et)
+
+        birthDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+
+            val dialog = DatePickerDialog(
+                requireContext(),
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            dialog.show()
+        }
 
         name.addTextChangedListener(textChangedListener)
         email.addTextChangedListener(textChangedListener)
@@ -99,6 +115,25 @@ class FormFragment : BaseFragment(LIST), FormContract.View {
         name.removeTextChangedListener(textChangedListener)
         email.removeTextChangedListener(textChangedListener)
         birthDate.removeTextChangedListener(textChangedListener)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.list_item) {
+            startActivity(RegisteredUsersActivity.newIntent(requireContext()))
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month)
+            set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        }
+
+        birthDate.setText(SimpleDateFormat(DATE_FORMAT, Locale.ROOT).format(calendar.time))
     }
 
     override fun showNameError(visible: Boolean) {
@@ -143,7 +178,7 @@ class FormFragment : BaseFragment(LIST), FormContract.View {
     }
 
     override fun clearBirthDate() {
-        birthDate.text.clear()
+        birthDate.text = ""
     }
 
     private fun setButtonAction() {

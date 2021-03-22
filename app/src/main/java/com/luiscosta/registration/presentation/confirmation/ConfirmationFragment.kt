@@ -3,15 +3,18 @@ package com.luiscosta.registration.presentation.confirmation
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.luiscosta.registration.R
 import com.luiscosta.registration.presentation.BaseFragment
 import com.luiscosta.registration.presentation.BaseFragment.MenuType.LIST
-import dagger.android.support.AndroidSupportInjection
+import com.luiscosta.registration.presentation.registered_users.RegisteredUsersActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ConfirmationFragment : BaseFragment(LIST), ConfirmationContract.View {
 
     @Inject
@@ -20,11 +23,6 @@ class ConfirmationFragment : BaseFragment(LIST), ConfirmationContract.View {
     private lateinit var name: TextView
     private lateinit var email: TextView
     private lateinit var birthDate: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +46,16 @@ class ConfirmationFragment : BaseFragment(LIST), ConfirmationContract.View {
         super.onDestroyView()
 
         presenter.onViewDestroyed()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.list_item) {
+            startActivity(RegisteredUsersActivity.newIntent(requireContext()))
+            requireActivity().finish()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun showName(name: String) {

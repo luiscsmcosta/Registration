@@ -4,6 +4,7 @@ import android.util.Log
 import com.luiscosta.registration.R
 import com.luiscosta.registration.repository.IUserRepository
 import com.luiscosta.registration.schedulers.BaseSchedulerProvider
+import dagger.hilt.android.scopes.FragmentScoped
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 

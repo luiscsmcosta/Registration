@@ -4,13 +4,15 @@ import com.luiscosta.registration.schedulers.BaseSchedulerProvider
 import com.luiscosta.registration.schedulers.SchedulerProvider
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-@Module(includes = [SchedulersModule.Bindings::class])
-class SchedulersModule {
+@Module
+@InstallIn(FragmentComponent::class)
+abstract class SchedulersModule {
 
-    @Module
-    interface Bindings {
-        @Binds
-        fun bindSchedulers(impl: SchedulerProvider): BaseSchedulerProvider
-    }
+    @Binds
+    abstract fun bindSchedulers(impl: SchedulerProvider): BaseSchedulerProvider
 }

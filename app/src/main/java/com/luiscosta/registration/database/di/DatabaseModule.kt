@@ -7,12 +7,17 @@ import com.luiscosta.registration.database.AppDatabase
 import com.luiscosta.registration.database.dao.UserDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
 
     @Provides
-    fun provideRoomDatabase(context: Context): AppDatabase {
+    fun provideRoomDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "dbName")
             .setJournalMode(JournalMode.TRUNCATE)
             .build()

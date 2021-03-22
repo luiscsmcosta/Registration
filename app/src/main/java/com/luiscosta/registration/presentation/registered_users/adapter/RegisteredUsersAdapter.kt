@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.luiscosta.registration.R
 import com.luiscosta.registration.domain.UserDomain
+import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
+@FragmentScoped
 class RegisteredUsersAdapter @Inject constructor() :
     RecyclerView.Adapter<RegisteredUserItemViewHolder>() {
 

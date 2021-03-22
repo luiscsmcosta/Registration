@@ -11,7 +11,7 @@ interface BaseSchedulerProvider {
     fun ui(): Scheduler
 }
 
-class SchedulerProvider @Inject constructor(): BaseSchedulerProvider {
+class SchedulerProvider @Inject constructor() : BaseSchedulerProvider {
     override fun computation() = Schedulers.computation()
     override fun ui() = AndroidSchedulers.mainThread()
     override fun io() = Schedulers.io()

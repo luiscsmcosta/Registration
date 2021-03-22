@@ -5,6 +5,7 @@ import com.luiscosta.registration.R
 import com.luiscosta.registration.domain.UserDomain
 import com.luiscosta.registration.repository.IUserRepository
 import com.luiscosta.registration.schedulers.BaseSchedulerProvider
+import dagger.hilt.android.scopes.FragmentScoped
 import io.reactivex.disposables.CompositeDisposable
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -100,11 +101,7 @@ class FormPresenter @Inject constructor(
             set(Calendar.YEAR, 1900)
             set(Calendar.DAY_OF_MONTH, 1)
         }.time
-        val end: Date = Calendar.getInstance().apply {
-            set(Calendar.MONTH, Calendar.DECEMBER)
-            set(Calendar.YEAR, 2019)
-            set(Calendar.DAY_OF_MONTH, 31)
-        }.time
+        val end: Date = Calendar.getInstance().time
 
         return try {
             val date: Date? = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(birthDate)

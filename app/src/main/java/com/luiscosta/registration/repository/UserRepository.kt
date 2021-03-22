@@ -3,8 +3,10 @@ package com.luiscosta.registration.repository
 import com.luiscosta.registration.database.dao.UserDao
 import com.luiscosta.registration.database.entity.User
 import com.luiscosta.registration.domain.UserDomain
+import dagger.hilt.android.scopes.FragmentScoped
 import io.reactivex.Single
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class UserRepository @Inject constructor(private val userDao: UserDao) : IUserRepository {
 
