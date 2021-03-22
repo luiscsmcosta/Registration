@@ -1,5 +1,5 @@
 # Registration
-This was a code challenge, not it is a sandbox.
+This was a code challenge, now it is a sandbox.
 
 ## What's new:
 - Replaced dagger with hilt.
